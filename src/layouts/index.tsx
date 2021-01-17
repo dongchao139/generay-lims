@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Button } from 'antd';
 import CSSTransition from "react-transition-group/CSSTransition";
-import {CSSTransitionProps} from 'react-transition-group/CSSTransition';
+import { CSSTransitionProps } from 'react-transition-group/CSSTransition';
 import {
   AppstoreOutlined,
   MenuUnfoldOutlined,
@@ -22,16 +22,25 @@ import './index.css';
  */
 const DefaultLayout: React.FC = (props: any) => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
+  const [inlineCollapsed, setInlineCollapsed] = useState<boolean>(false);
   const toggleCollapsed = () => {
     setCollapsed(collapsed => {
       return !collapsed;
     })
   }
+  const toggleInlineCollapsed = () => {
+    setInlineCollapsed(collapsed => {
+      return !collapsed;
+    })
+  }
+  const paddingLeft = collapsed ? '0.55em' : '1.25em';
   // 基础布局
   return (
     <Layout style={{ minHeight: '100%' }}>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className='sider-logo'>
+      <Sider trigger={null} collapsible collapsed={collapsed}
+        collapsedWidth='3em'
+      >
+        <div className='sider-logo' style={{ paddingLeft: paddingLeft }}>
           <a>
             <span className='logo'></span>
             <CSSTransition in={!collapsed} animation='toggle-show' timeout={300}>
@@ -44,11 +53,13 @@ const DefaultLayout: React.FC = (props: any) => {
         <Menu
           defaultSelectedKeys={['1']}
           defaultOpenKeys={['sub1']}
-          mode="inline"
-          theme="dark"
-          inlineCollapsed={collapsed}
+          mode="inline" theme="dark"
+          inlineCollapsed={inlineCollapsed}
+          collapsedWidth='3em'
         >
-          <SubMenu key="sub1" icon={<MailOutlined />} title="Navigation One">
+          <SubMenu key="sub1" icon={<MailOutlined />}
+            title="Navigation One"
+          >
             <Menu.Item key="1" icon={<PieChartOutlined />}>
               Option 1
           </Menu.Item>
@@ -68,15 +79,19 @@ const DefaultLayout: React.FC = (props: any) => {
             </SubMenu>
           </SubMenu>
         </Menu>
+        <Button type="link" onClick={toggleInlineCollapsed} className='menu-toggle'
+        >
+          {!collapsed && (inlineCollapsed? 'open':'collapse')}
+        </Button>
       </Sider>
       <Layout className='site-layout'>
-        <Header className="site-layout-background" style={{padding: 0}}>
+        <Header className="site-layout-background" style={{ padding: 0 }}>
           {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
             className: 'trigger',
             onClick: toggleCollapsed
           })}
         </Header>
-        <Content style={{padding: '1em'}}>
+        <Content style={{ padding: '1em' }}>
           {props.children}
         </Content>
         <Footer className='site-layout-background'>Footer</Footer>
