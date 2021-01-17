@@ -1,0 +1,56 @@
+#root, body, html {
+    height: 100%;
+}
+.sider-logo {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    cursor: pointer;
+    height: 56px;
+}
+.sider-logo > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2em;
+}
+.sider-logo h1 {
+    display: inline-block;
+    height: 2em;
+    margin: 0 0 0 0.75em;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.125em;
+    line-height: 2em;
+    vertical-align: middle;
+}
+.logo {
+    display: inline-block;
+    width: 2.5em; 
+    height: 1.625em; 
+    vertical-align: middle;
+    background: url('../../public/logo.png') left no-repeat;
+    background-size: auto 100%;
+    background-position: 0%,50%;
+}
+
+.site-layout .site-layout-background {
+    background: #fff;
+}
+.trigger {
+    cursor: pointer;
+    padding: 1em;
+}
+.trigger:hover {
+    color: #1890ff;
+}
+
+h1.enter-done {
+    display: in-block;
+}
+
+h1.enter, h1.enter-active, h1.exit, h1.exit-active, h1.exit-done {
+    display: none;
+}

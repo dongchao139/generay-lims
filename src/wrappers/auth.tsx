@@ -4,7 +4,7 @@ import { Redirect } from 'umi';
 const Auth: React.FC = (props) => {
     const isLogin = true;
     if (isLogin) {
-        return <div>{props.children}</div>
+        return <>{props.children}</>;
     } else {
         return <Redirect to='/login' />
     }

@@ -22,11 +22,13 @@
   "dependencies": {
     "@ant-design/pro-layout": "^6.5.0",
     "@umijs/preset-react": "1.x",
+    "react-transition-group": "^4.4.1",
     "umi": "^3.3.5"
   },
   "devDependencies": {
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "@types/react-transition-group": "^4.4.0",
     "@umijs/test": "^3.3.5",
     "lint-staged": "^10.0.7",
     "prettier": "^2.2.0",
