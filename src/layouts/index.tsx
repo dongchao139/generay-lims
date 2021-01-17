@@ -43,11 +43,9 @@ const DefaultLayout: React.FC = (props: any) => {
         <div className='sider-logo' style={{ paddingLeft: paddingLeft }}>
           <a>
             <span className='logo'></span>
-            <CSSTransition in={!collapsed} animation='toggle-show' timeout={300}>
-              <h1>
-                NetStar LIMS
-              </h1>
-            </CSSTransition>
+            <h1>
+              NetStar LIMS
+            </h1>
           </a>
         </div>
         <Menu
