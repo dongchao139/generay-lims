@@ -16,7 +16,7 @@ const { SubMenu } = Menu;
 
 import './index.css';
 /**
- * 全局layout
+ * 全局layout（除登录页以外）
  * @param props
  * @constructor
  */
