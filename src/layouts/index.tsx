@@ -31,7 +31,7 @@ const DefaultLayout: React.FC = (props: any) => {
   const toggleInlineCollapsed = () => {
     setInlineCollapsed(collapsed => {
       return !collapsed;
-    })
+    });
   }
   const paddingLeft = collapsed ? '0.55em' : '1.25em';
   // 基础布局
@@ -44,7 +44,7 @@ const DefaultLayout: React.FC = (props: any) => {
             <a>
               <span className='logo'></span>
               <h1>
-                General LIMS
+                Generay LIMS
             </h1>
             </a>
           </div>

@@ -1,5 +1,6 @@
 {
-  "private": true,
+  "private": false,
+  "name":"Generay LIMS",
   "scripts": {
     "start": "umi dev",
     "build": "umi build",
