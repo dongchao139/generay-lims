@@ -1,4 +1,4 @@
-import {put, takeEvery} from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 import { IAction } from './reducer';
 import { history } from 'umi';
 import store from './store';
@@ -8,10 +8,10 @@ function* doLogin(action: IAction) {
   // 模拟登录
   setTimeout(() => {
     console.log('push history');
-      store.dispatch({
-        type: 'doLogin'
-      });
-      history.push('/pages/index');
+    store.dispatch({
+      type: 'doLogin'
+    });
+    history.push('/pages/index');
   }, 200);
 }
 

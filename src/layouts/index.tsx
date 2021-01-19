@@ -44,7 +44,7 @@ const DefaultLayout: React.FC = (props: any) => {
             <a>
               <span className='logo'></span>
               <h1>
-                NetStar LIMS
+                General LIMS
             </h1>
             </a>
           </div>
