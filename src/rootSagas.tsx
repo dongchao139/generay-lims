@@ -11,7 +11,7 @@ function* doLogin(action: IAction) {
       store.dispatch({
         type: 'doLogin'
       });
-      history.push('/pages/index');
+      history.push('/pages/');
   }, 200);
 }
 
