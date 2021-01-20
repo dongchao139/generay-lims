@@ -6,13 +6,15 @@ export interface IAction {
     payload?: any
 }
 
-
 const reducer: Reducer<IState, IAction> = (state: IState = {}, action: IAction): IState => {
     switch(action.type) {
         case 'doLogin':
             return {
-                auth: {}
+                auth: action.payload
             }
+        case 'logout':
+            console.log('reduce logout');
+            return {}
         default:
             return state;
     }

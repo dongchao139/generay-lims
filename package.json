@@ -1,6 +1,6 @@
 {
   "private": false,
-  "name":"Generay LIMS",
+  "name": "Generay-LIMS",
   "scripts": {
     "start": "umi dev",
     "build": "umi build",
@@ -21,6 +21,7 @@
     ]
   },
   "dependencies": {
+    "@ant-design/icons": "^4.4.0",
     "@ant-design/pro-layout": "^6.5.0",
     "@umijs/preset-react": "1.x",
     "react-transition-group": "^4.4.1",

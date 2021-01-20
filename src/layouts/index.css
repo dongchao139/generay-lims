@@ -56,3 +56,64 @@ button.menu-toggle {
     bottom: 1em;
     color: white
 }
+
+header.ant-layout-header {
+    height: 3em;
+    line-height: 3em;
+}
+
+.ant-layout-header .pull-right {
+    float: right;
+    line-height: 3em;
+    font-size: 1em;
+    min-width: 2.5em;
+}
+.ant-layout-header .header-icon:hover {
+    background-color: #f0f2f5;
+    cursor: pointer;
+}
+
+.user-info {
+    user-select: none;
+    position: relative;
+}
+.user-info > .anticon-user {
+    padding-right: 0;
+    height: 1em;
+    font-size: 1.2em;
+}
+.user-info > span {
+    font-size: 0.75em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+.user-info:hover{
+    cursor: pointer;
+    background-color: #f0f2f5;
+}
+
+.user-info ul.dropdown-menu {
+    font-size: 0.75em;
+    line-height: 2.5em;
+    background-color: white;
+    padding: 0.5em 0;
+    position: absolute;
+    top: 4em;
+    right: -0.5em;
+    width: 12em;
+    border: 1px solid #e0e0e0;
+}
+
+ul.dropdown-menu > li {
+    list-style: none;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+ul.dropdown-menu > li:hover {
+    background-color: #e0e0e0;
+}
+
+li > .dropdown-menu-icon {
+    padding-right: 1em;
+}

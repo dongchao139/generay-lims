@@ -4,12 +4,15 @@ import { history } from 'umi';
 import store from './store';
 
 function* doLogin(action: IAction) {
-  console.log('doLogin');
   // 模拟登录
   setTimeout(() => {
-    console.log('push history');
     store.dispatch({
-      type: 'doLogin'
+      type: 'doLogin',
+      payload: {
+        userId: '1',
+        userName: '系统管理员',
+        token: 'abc'
+      }
     });
     history.push('/pages/index');
   }, 200);
