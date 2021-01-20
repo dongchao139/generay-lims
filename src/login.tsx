@@ -21,6 +21,9 @@ const Login = () => {
         initialValues={{ remember: true }}
         onFinish={onFinish}
       >
+        <Form.Item>
+          <h3 style={{textAlign: 'center', fontSize: '1.5em'}}>请登录</h3>
+        </Form.Item>
         <Form.Item
           name="username"
           rules={[{ required: true, message: 'Please input your Username!' }]}
