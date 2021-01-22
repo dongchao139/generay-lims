@@ -5,11 +5,11 @@ import {
   DesktopOutlined,  ContainerOutlined,  MailOutlined,  UserOutlined, 
    UnlockOutlined,  SettingOutlined,  PoweroffOutlined,  MessageOutlined,
   BellOutlined,
+  CloseOutlined,
 } from '@ant-design/icons';
 const { Header, Footer, Sider, Content } = Layout;
 import {useMappedState, useDispatch} from 'redux-react-hook';
 const { SubMenu } = Menu;
-
 import './index.css';
 import useClickOutside from '@/hooks/useClickOutside';
 /**
@@ -108,6 +108,18 @@ const DefaultLayout: React.FC = (props: any) => {
               className: 'trigger',
               onClick: toggleCollapsed
             })}
+            <ul className="header-tabs">
+              <li className="checked">
+                Tab 1
+                <CloseOutlined className="icon-close"/>
+              </li>
+              <li>
+                Tab 2
+              </li>
+              <li>
+                Tab 3
+              </li>
+            </ul>
             <BellOutlined className="pull-right header-icon" />
             <MessageOutlined className="pull-right header-icon" />
             <div className="user-info pull-right" 
