@@ -4,8 +4,7 @@ import {
   AppstoreOutlined,  MenuUnfoldOutlined,  MenuFoldOutlined,  PieChartOutlined,  
   DesktopOutlined,  ContainerOutlined,  MailOutlined,  UserOutlined, 
    UnlockOutlined,  SettingOutlined,  PoweroffOutlined,  MessageOutlined,
-  BellOutlined,
-  CloseOutlined,
+  BellOutlined,  CloseOutlined,
 } from '@ant-design/icons';
 const { Header, Footer, Sider, Content } = Layout;
 import {useMappedState, useDispatch} from 'redux-react-hook';
@@ -19,9 +18,7 @@ interface ITab {
 }
 
 const defaultTabs: ITab[] = [
-  {name: 'Tab 1', active: true},
-  {name: 'Tab 2', active: false},
-  {name: 'Tab 3', active: false},
+  {name: 'Option 1', active: true},
 ] 
 
 /**
@@ -97,14 +94,18 @@ const DefaultLayout: React.FC = (props: any) => {
   }, []);
   const handleMenuClick = useCallback((optName) => {
     setTabs(tabs => {
-      const newTabs = tabs.map(t => {
-        t.active = false;
+      let newTabs = tabs.map(t => {
+        if (t.name !== optName) {
+          t.active = false;
+        } else {
+          t.active = true;
+        }
         return t;
       });
       if (newTabs.filter(t => t.name === optName).length === 0) {
-        return [...newTabs, {name: optName, active: true}];
+        newTabs = [...newTabs, {name: optName, active: true}];
       };
-      return tabs;
+      return newTabs;
     });
   },[]);
   // 基础布局
