@@ -12,6 +12,18 @@ import {useMappedState, useDispatch} from 'redux-react-hook';
 const { SubMenu } = Menu;
 import './index.css';
 import useClickOutside from '@/hooks/useClickOutside';
+
+interface ITab {
+  name: string;
+  active: boolean;
+}
+
+const defaultTabs: ITab[] = [
+  {name: 'Tab 1', active: true},
+  {name: 'Tab 2', active: false},
+  {name: 'Tab 3', active: false},
+] 
+
 /**
  * 全局layout（除登录页以外）
  * @param props
@@ -54,6 +66,47 @@ const DefaultLayout: React.FC = (props: any) => {
     });
     console.log('handlePowerOff');
   }
+  const [tabs, setTabs] = useState<ITab[]>(defaultTabs);
+  const handleTabClose = useCallback((tab, e) => {
+    e.stopPropagation();
+    setTabs(tabs => {
+      const newTabs = tabs.filter(t => {
+        if (t.name === tab.name) {
+          return false;
+        }
+        return true;
+      });
+      if (newTabs.length > 0) {
+        newTabs[0].active = true;
+      }
+      return newTabs;
+    })
+  },[]);
+  const handleTabClick = useCallback((tab) => {
+    setTabs(tabs => {
+      const newTabs = tabs.map(t => {
+        if (t.name === tab.name) {
+          t.active = true;
+        } else {
+          t.active = false;
+        }
+        return t;
+      });
+      return newTabs;
+    });
+  }, []);
+  const handleMenuClick = useCallback((optName) => {
+    setTabs(tabs => {
+      const newTabs = tabs.map(t => {
+        t.active = false;
+        return t;
+      });
+      if (newTabs.filter(t => t.name === optName).length === 0) {
+        return [...newTabs, {name: optName, active: true}];
+      };
+      return tabs;
+    });
+  },[]);
   // 基础布局
   return (
     <Layout style={{ minHeight: '100%' }}>
@@ -78,15 +131,21 @@ const DefaultLayout: React.FC = (props: any) => {
             <SubMenu key="sub1" icon={<MailOutlined />}
               title="Navigation One"
             >
-              <Menu.Item key="1" icon={<PieChartOutlined />}>
+              <Menu.Item key="1" icon={<PieChartOutlined />}
+               onClick={() => handleMenuClick('Option 1')}
+              >
                 Option 1
-          </Menu.Item>
-              <Menu.Item key="2" icon={<DesktopOutlined />}>
+              </Menu.Item>
+              <Menu.Item key="2" icon={<DesktopOutlined />}
+                onClick={() => handleMenuClick('Option 2')}
+              >
                 Option 2
-          </Menu.Item>
-              <Menu.Item key="3" icon={<ContainerOutlined />}>
+              </Menu.Item>
+              <Menu.Item key="3" icon={<ContainerOutlined />}
+                onClick={() => handleMenuClick('Option 3')}
+              >
                 Option 3
-          </Menu.Item>
+              </Menu.Item>
             </SubMenu>
             <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Navigation Two">
               <Menu.Item key="9">Option 9</Menu.Item>
@@ -109,16 +168,18 @@ const DefaultLayout: React.FC = (props: any) => {
               onClick: toggleCollapsed
             })}
             <ul className="header-tabs">
-              <li className="checked">
-                Tab 1
-                <CloseOutlined className="icon-close"/>
-              </li>
-              <li>
-                Tab 2
-              </li>
-              <li>
-                Tab 3
-              </li>
+              {
+                tabs && tabs.map(tab => {
+                  const clsName = tab.active ? "checked": "";
+                  return <li className={clsName} onClick={() => handleTabClick(tab)}>
+                      {tab.name}
+                      {tab.active ? 
+                      <CloseOutlined className="icon-close"
+                        onClick={(e) => handleTabClose(tab,e)}
+                      />: null}
+                  </li>
+                })
+              }
             </ul>
             <BellOutlined className="pull-right header-icon" />
             <MessageOutlined className="pull-right header-icon" />
