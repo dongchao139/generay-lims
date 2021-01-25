@@ -1,10 +1,9 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { Layout, Menu, Button } from 'antd';
 import {
-  AppstoreOutlined,  MenuUnfoldOutlined,  MenuFoldOutlined,  PieChartOutlined,  
-  DesktopOutlined,  ContainerOutlined,  MailOutlined,  UserOutlined, 
-   UnlockOutlined,  SettingOutlined,  PoweroffOutlined,  MessageOutlined,
-  BellOutlined,  CloseOutlined,
+  MenuUnfoldOutlined,  MenuFoldOutlined,  PieChartOutlined,  MailOutlined, 
+  UserOutlined, UnlockOutlined,  SettingOutlined,  PoweroffOutlined, 
+  MessageOutlined, BellOutlined,  CloseOutlined,
 } from '@ant-design/icons';
 const { Header, Footer, Sider, Content } = Layout;
 import {useMappedState, useDispatch} from 'redux-react-hook';
@@ -12,15 +11,14 @@ const { SubMenu } = Menu;
 import './index.css';
 import useClickOutside from '@/hooks/useClickOutside';
 import {history} from 'umi';
+import { IState } from '@/store';
 
 interface ITab {
   name: string;
   active: boolean;
 }
 
-const defaultTabs: ITab[] = [
-  {name: 'Option1', active: true},
-] 
+const defaultTabs: ITab[] = []
 
 const defaultMenus = [{
   name: 'Navigation One',
@@ -76,55 +74,30 @@ const DefaultLayout: React.FC = (props: any) => {
 
   const [menus] = useState(defaultMenus);
 
-  const [tabs, setTabs] = useState<ITab[]>(defaultTabs);
+  const mapTabs = useCallback((state: IState) => {
+    return {
+      stateTabs: state.tabs
+    }
+  },[]);
+  const {stateTabs} = useMappedState(mapTabs);
   const handleTabClose = useCallback((tab, e) => {
     e.stopPropagation();
-    let activeTab: ITab | null = null;
-    setTabs(tabs => {
-      const newTabs = tabs.filter(t => {
-        if (t.name === tab.name) {
-          return false;
-        }
-        return true;
-      });
-      if (newTabs.length > 0) {
-        newTabs[0].active = true;
-        activeTab = newTabs[0];
-        if (activeTab) {
-          history.push("/pages/"+activeTab.name);
-        }
-      }
-      return newTabs;
-    });
+    dispatch({
+      type: 'close-tab',
+      payload: tab
+    })
   },[]);
   const handleTabClick = useCallback((tab) => {
-    setTabs(tabs => {
-      const newTabs = tabs.map(t => {
-        if (t.name === tab.name) {
-          t.active = true;
-        } else {
-          t.active = false;
-        }
-        return t;
-      });
-      return newTabs;
-    });
+    dispatch({
+      type: 'switch-tab',
+      payload: tab
+    })
     history.push("/pages/"+tab.name);
   }, []);
   const handleMenuClick = useCallback((optName) => {
-    setTabs(tabs => {
-      let newTabs = tabs.map(t => {
-        if (t.name !== optName) {
-          t.active = false;
-        } else {
-          t.active = true;
-        }
-        return t;
-      });
-      if (newTabs.filter(t => t.name === optName).length === 0) {
-        newTabs = [...newTabs, {name: optName, active: true}];
-      };
-      return newTabs;
+    dispatch({
+      type: 'add-tab',
+      payload: optName
     });
     history.push("/pages/"+optName);
   },[]);
@@ -178,7 +151,7 @@ const DefaultLayout: React.FC = (props: any) => {
             })}
             <ul className="header-tabs">
               {
-                tabs && tabs.map(tab => {
+                stateTabs && stateTabs.map(tab => {
                   const clsName = tab.active ? "checked": "";
                   return <li className={clsName} onClick={() => handleTabClick(tab)}>
                       {tab.name}

@@ -11,9 +11,19 @@ export interface IAuthInfo {
     token?: string;
 }
 
+export interface ITab {
+    name: string;
+    active: boolean;
+}
+  
 export interface IState {
-    auth?: IAuthInfo;
+    auth?: IAuthInfo | null;
+    tabs: ITab[];
     [key: string]: any
+}
+
+export const defaultState: IState = {
+    tabs: []
 }
 
 const store: Store<IState, IAction> = createStore(reducer,
