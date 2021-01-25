@@ -2,9 +2,12 @@ import { Reducer } from "redux";
 import { IState, ITab } from "./store";
 import {defaultState} from './store';
 import {history} from 'umi';
+import PageReducers from './pages/reducers';
+
 
 export interface IAction {
   type: string;
+  tabName?: string;
   payload?: any
 }
 
@@ -59,6 +62,12 @@ function handleCloseTab(state: IState, payload: ITab): IState {
   return {...state, tabs: newTabs};
 }
 
+function handleDefault(state: IState, action: IAction): IState {
+  if (action.tabName) {
+    return PageReducers[action.tabName](state, action);
+  }
+  return state
+}
 const reducer: Reducer<IState, IAction> = (state: IState = defaultState, action: IAction): IState => {
   switch (action.type) {
     case 'doLogin':
@@ -75,7 +84,7 @@ const reducer: Reducer<IState, IAction> = (state: IState = defaultState, action:
     case 'close-tab':
       return handleCloseTab(state, action.payload);
     default:
-      return state;
+      return handleDefault(state, action);
   }
 }
 

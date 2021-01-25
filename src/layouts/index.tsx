@@ -18,8 +18,6 @@ interface ITab {
   active: boolean;
 }
 
-const defaultTabs: ITab[] = []
-
 const defaultMenus = [{
   name: 'Navigation One',
   subMenus: [
