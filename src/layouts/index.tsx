@@ -11,6 +11,7 @@ import {useMappedState, useDispatch} from 'redux-react-hook';
 const { SubMenu } = Menu;
 import './index.css';
 import useClickOutside from '@/hooks/useClickOutside';
+import {history} from 'umi';
 
 interface ITab {
   name: string;
@@ -18,8 +19,17 @@ interface ITab {
 }
 
 const defaultTabs: ITab[] = [
-  {name: 'Option 1', active: true},
+  {name: 'Option1', active: true},
 ] 
+
+const defaultMenus = [{
+  name: 'Navigation One',
+  subMenus: [
+    { name: 'Option1' },
+    { name: 'Option2' },
+    { name: 'Option3' },
+  ]
+}]
 
 /**
  * 全局layout（除登录页以外）
@@ -63,9 +73,13 @@ const DefaultLayout: React.FC = (props: any) => {
     });
     console.log('handlePowerOff');
   }
+
+  const [menus] = useState(defaultMenus);
+
   const [tabs, setTabs] = useState<ITab[]>(defaultTabs);
   const handleTabClose = useCallback((tab, e) => {
     e.stopPropagation();
+    let activeTab: ITab | null = null;
     setTabs(tabs => {
       const newTabs = tabs.filter(t => {
         if (t.name === tab.name) {
@@ -75,9 +89,13 @@ const DefaultLayout: React.FC = (props: any) => {
       });
       if (newTabs.length > 0) {
         newTabs[0].active = true;
+        activeTab = newTabs[0];
+        if (activeTab) {
+          history.push("/pages/"+activeTab.name);
+        }
       }
       return newTabs;
-    })
+    });
   },[]);
   const handleTabClick = useCallback((tab) => {
     setTabs(tabs => {
@@ -91,6 +109,7 @@ const DefaultLayout: React.FC = (props: any) => {
       });
       return newTabs;
     });
+    history.push("/pages/"+tab.name);
   }, []);
   const handleMenuClick = useCallback((optName) => {
     setTabs(tabs => {
@@ -107,6 +126,7 @@ const DefaultLayout: React.FC = (props: any) => {
       };
       return newTabs;
     });
+    history.push("/pages/"+optName);
   },[]);
   // 基础布局
   return (
@@ -129,33 +149,21 @@ const DefaultLayout: React.FC = (props: any) => {
             inlineCollapsed={inlineCollapsed}
             collapsedWidth='3em'
           >
-            <SubMenu key="sub1" icon={<MailOutlined />}
-              title="Navigation One"
-            >
-              <Menu.Item key="1" icon={<PieChartOutlined />}
-               onClick={() => handleMenuClick('Option 1')}
-              >
-                Option 1
-              </Menu.Item>
-              <Menu.Item key="2" icon={<DesktopOutlined />}
-                onClick={() => handleMenuClick('Option 2')}
-              >
-                Option 2
-              </Menu.Item>
-              <Menu.Item key="3" icon={<ContainerOutlined />}
-                onClick={() => handleMenuClick('Option 3')}
-              >
-                Option 3
-              </Menu.Item>
-            </SubMenu>
-            <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Navigation Two">
-              <Menu.Item key="9">Option 9</Menu.Item>
-              <Menu.Item key="10">Option 10</Menu.Item>
-              <SubMenu key="sub3" title="Submenu">
-                <Menu.Item key="11">Option 11</Menu.Item>
-                <Menu.Item key="12">Option 12</Menu.Item>
-              </SubMenu>
-            </SubMenu>
+            {menus && menus.map(menu => {
+              return (
+                <SubMenu key="sub1" icon={<MailOutlined />}
+                  title={menu.name}
+                >
+                  {menu.subMenus && menu.subMenus.map(submenu => (
+                    <Menu.Item key={submenu.name} icon={<PieChartOutlined />}
+                    onClick={() => handleMenuClick(submenu.name)}
+                   >
+                     {submenu.name}
+                   </Menu.Item>
+                  ))}
+                </SubMenu>
+              )
+            })}
           </Menu>
           <Button type="link" onClick={toggleInlineCollapsed} className='menu-toggle'
           >

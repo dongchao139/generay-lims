@@ -13,6 +13,7 @@ export interface IAuthInfo {
 
 export interface IState {
     auth?: IAuthInfo;
+    [key: string]: any
 }
 
 const store: Store<IState, IAction> = createStore(reducer,
