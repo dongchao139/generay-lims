@@ -14,6 +14,7 @@ export interface IAuthInfo {
 export interface ITab {
     name: string;
     active: boolean;
+    params?: {[key: string]: string};
 }
   
 export interface IState {

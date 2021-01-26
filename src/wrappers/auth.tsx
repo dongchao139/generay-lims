@@ -8,13 +8,11 @@ import {useMappedState} from 'redux-react-hook';
  */
 const Auth: React.FC = (props) => {
     const mapState = useCallback(state => {
-        console.log(state);
         return {
             auth: state.auth
         }
     },[]);
     const {auth} = useMappedState(mapState);
-    console.log('auth');
     if (auth) {
         return <>{props.children}</>;
     } else {

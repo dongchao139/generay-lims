@@ -6,7 +6,6 @@ import store from './store';
 
 const Login = () => {
   const onFinish = (values: any) => {
-    console.log('Success:', values);
     store.dispatch({
       type: 'login',
       payload: values

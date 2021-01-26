@@ -11,12 +11,7 @@ const { SubMenu } = Menu;
 import './index.css';
 import useClickOutside from '@/hooks/useClickOutside';
 import {history} from 'umi';
-import { IState } from '@/store';
-
-interface ITab {
-  name: string;
-  active: boolean;
-}
+import { IState, ITab } from '@/store';
 
 const defaultMenus = [{
   name: 'Navigation One',
@@ -48,9 +43,8 @@ const DefaultLayout: React.FC = (props: any) => {
   const paddingLeft = collapsed ? '0.55em' : '1.25em';
 
   const mapState = useCallback(state => {
-      console.log(state);
       return {
-          auth: state.auth
+        auth: state.auth
       }
   },[]);
   const {auth} = useMappedState(mapState);
@@ -67,7 +61,6 @@ const DefaultLayout: React.FC = (props: any) => {
     dispatch({
       type: 'logout'
     });
-    console.log('handlePowerOff');
   }
 
   const [menus] = useState(defaultMenus);
@@ -85,17 +78,26 @@ const DefaultLayout: React.FC = (props: any) => {
       payload: tab
     })
   },[]);
-  const handleTabClick = useCallback((tab) => {
+  const handleTabClick = useCallback((tab: ITab) => {
     dispatch({
       type: 'switch-tab',
       payload: tab
-    })
-    history.push("/pages/"+tab.name);
+    });
+    if (!tab.params) {
+      history.push("/pages/"+tab.name);
+    } else {
+      history.push({
+        pathname: "/pages/"+tab.name,
+        search: tab.params.search
+      });
+    }
   }, []);
   const handleMenuClick = useCallback((optName) => {
     dispatch({
       type: 'add-tab',
-      payload: optName
+      payload: {
+        optName
+      }
     });
     history.push("/pages/"+optName);
   },[]);
