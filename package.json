@@ -1,6 +1,7 @@
 {
   "private": false,
-  "name": "Generay-LIMS",
+  "name": "generay-lims",
+  "version": "1.0.0",
   "scripts": {
     "start": "umi dev",
     "build": "umi build",

@@ -1,8 +1,8 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { Layout, Menu, Button } from 'antd';
 import {
-  MenuUnfoldOutlined,  MenuFoldOutlined,  PieChartOutlined,  MailOutlined, 
-  UserOutlined, UnlockOutlined,  SettingOutlined,  PoweroffOutlined, 
+  MenuUnfoldOutlined,  MenuFoldOutlined,  PieChartOutlined,  MailOutlined,
+  UserOutlined, UnlockOutlined,  SettingOutlined,  PoweroffOutlined,
   MessageOutlined, BellOutlined,  CloseOutlined,
 } from '@ant-design/icons';
 const { Header, Footer, Sider, Content } = Layout;
@@ -109,7 +109,7 @@ const DefaultLayout: React.FC = (props: any) => {
         >
           <div className='sider-logo' style={{ paddingLeft: paddingLeft }}>
             <a>
-              <span className='logo'></span>
+              <span className='logo'/>
               <h1>
                 Generay LIMS
             </h1>
@@ -155,7 +155,7 @@ const DefaultLayout: React.FC = (props: any) => {
                   const clsName = tab.active ? "checked": "";
                   return <li className={clsName} onClick={() => handleTabClick(tab)}>
                       {tab.name}
-                      {tab.active ? 
+                      {tab.active ?
                       <CloseOutlined className="icon-close"
                         onClick={(e) => handleTabClose(tab,e)}
                       />: null}
@@ -165,13 +165,13 @@ const DefaultLayout: React.FC = (props: any) => {
             </ul>
             <BellOutlined className="pull-right header-icon" />
             <MessageOutlined className="pull-right header-icon" />
-            <div className="user-info pull-right" 
+            <div className="user-info pull-right"
              onClick={() => setShowLogoutMenu(show => !show)}
              ref={ref}
             >
               <UserOutlined />
               <span>{userName}</span>
-              {showLogoutMenu ? 
+              {showLogoutMenu ?
                 <ul className="dropdown-menu">
                   <li><UnlockOutlined className="dropdown-menu-icon" />修改密码</li>
                   <li><SettingOutlined className="dropdown-menu-icon" />设置</li>
