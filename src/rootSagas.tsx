@@ -1,4 +1,4 @@
-import { put, takeEvery } from 'redux-saga/effects';
+import { takeEvery } from 'redux-saga/effects';
 import { IAction } from './reducer';
 import { history } from 'umi';
 import store from './store';
@@ -25,7 +25,12 @@ function* doLogin(action: IAction) {
         });
       }, 1000 * 60 * 60 * 2);
     }
-    history.push('/pages/index');
+    if ((window as any).historyFrom) {
+      history.push((window as any).historyFrom);
+      delete (window as any).historyFrom;
+    } else {
+      history.push('/pages/index');
+    }
   }, 200);
 }
 

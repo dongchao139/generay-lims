@@ -15,6 +15,32 @@ function getQueryVariable(query: string) {
   return variable;
 }
 
+function getTabInfoFromLocation(): ITab | null {
+  if (window.location.pathname.startsWith("/pages/")) {
+    let pathName = window.location.pathname.substr("/pages/".length);
+    let params = null;
+    if (pathName.indexOf("?") > 0) {
+      pathName = pathName.substring(0, pathName.indexOf("?"));
+      params = getQueryVariable(pathName.substring(pathName.indexOf("?") + 1));
+    }
+    let tab: ITab;
+    if (params) {
+      tab = {
+        name: pathName,
+        active: true,
+        params: params
+      }
+    } else {
+      tab = {
+        name: pathName,
+        active: true
+      }
+    }
+    return tab;
+  }
+  return null;
+}
+
 export interface IAuthInfo {
     userId?: string;
     userName?: string;
@@ -42,26 +68,10 @@ if (window.localStorage && window.localStorage.authInfo) {
 }
 
 if (window.location.pathname.startsWith("/pages/")) {
-  let pathName = window.location.pathname.substr("/pages/".length);
-  let params = null;
-  if (pathName.indexOf("?") > 0) {
-    pathName = pathName.substring(0, pathName.indexOf("?"));
-    params = getQueryVariable(pathName.substring(pathName.indexOf("?") + 1));
+  let tab: ITab | null = getTabInfoFromLocation();
+  if (tab) {
+    defaultState.tabs.push(tab);
   }
-  let tab: ITab;
-  if (params) {
-    tab = {
-      name: pathName,
-      active: true,
-      params: params
-    }
-  } else {
-    tab = {
-      name: pathName,
-      active: true
-    }
-  }
-  defaultState.tabs.push(tab);
 }
 
 const store: Store<IState, IAction> = createStore(reducer,

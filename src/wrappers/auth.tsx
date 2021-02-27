@@ -1,7 +1,13 @@
-import React, {useCallback} from 'react'
+import React, { useCallback } from 'react';
 import { Redirect } from 'umi';
-import {useMappedState} from 'redux-react-hook';
-import store from '@/store';
+import { useMappedState } from 'redux-react-hook';
+
+function getPathFromLocation(): string | null {
+  if (window.location.pathname.startsWith("/pages/")) {
+    return window.location.pathname;
+  }
+  return null;
+}
 
 /**
  * 验证是否登录，如果没有登录，跳转到登录页
@@ -17,7 +23,8 @@ const Auth: React.FC = (props) => {
     if (auth) {
         return <>{props.children}</>;
     } else {
-        return <Redirect to='/login' />
+      (window as any).historyFrom = getPathFromLocation();
+        return <Redirect to='/login'/>
     }
 }
 export default Auth;
