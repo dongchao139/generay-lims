@@ -28,7 +28,7 @@ function handleAddTab(state: IState, payload: any): IState {
   });
   if (newTabs.filter(t => t.name === optName).length === 0) {
     const newTab = {
-      name: optName, 
+      name: optName,
       active: true,
       params: {
         search: payload.search
@@ -64,10 +64,7 @@ function handleCloseTab(state: IState, payload: ITab): IState {
   const tab = payload;
   let activeTab: ITab | null = null;
   const newTabs = beforeTabs.filter(t => {
-    if (t.name === tab.name) {
-      return false;
-    }
-    return true;
+    return t.name !== tab.name;
   });
   if (newTabs.length > 0) {
     newTabs[0].active = true;
@@ -75,6 +72,8 @@ function handleCloseTab(state: IState, payload: ITab): IState {
     if (activeTab) {
       history.push("/pages/"+activeTab.name);
     }
+  } else {
+    history.push('/pages/index');
   }
   return {...state, tabs: newTabs};
 }
