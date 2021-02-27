@@ -91,7 +91,7 @@ const reducer: Reducer<IState, IAction> = (state: IState = defaultState, action:
         ...state,
         auth: action.payload
       }
-    case 'logout':
+    case 'doLogout':
       return {...state, auth: null}
     case 'add-tab':
       return handleAddTab(state, action.payload);

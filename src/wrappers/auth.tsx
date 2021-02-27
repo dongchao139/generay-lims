@@ -1,10 +1,11 @@
 import React, {useCallback} from 'react'
 import { Redirect } from 'umi';
 import {useMappedState} from 'redux-react-hook';
+import store from '@/store';
 
 /**
  * 验证是否登录，如果没有登录，跳转到登录页
- * @param props 
+ * @param props
  */
 const Auth: React.FC = (props) => {
     const mapState = useCallback(state => {
