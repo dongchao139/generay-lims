@@ -4,7 +4,7 @@ import { useMappedState } from 'redux-react-hook';
 
 function getPathFromLocation(): string | null {
   if (window.location.pathname.startsWith("/pages/")) {
-    return window.location.pathname;
+    return window.location.pathname + window.location.search;
   }
   return null;
 }
