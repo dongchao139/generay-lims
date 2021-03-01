@@ -13,9 +13,10 @@ export interface IAction {
 
 function handleAddTab(state: IState, payload: any): IState {
   const beforeTabs = state.tabs;
-  const optName = payload.optName;
+  const enName = payload.enName;
+  const chName = payload.chName;
   let newTabs = beforeTabs.map(t => {
-    if (t.name !== optName) {
+    if (t.name !== enName) {
       t.active = false;
     } else {
       t.active = true;
@@ -26,9 +27,10 @@ function handleAddTab(state: IState, payload: any): IState {
     }
     return t;
   });
-  if (newTabs.filter(t => t.name === optName).length === 0) {
+  if (newTabs.filter(t => t.name === enName).length === 0) {
     const newTab = {
-      name: optName,
+      name: enName,
+      chName: chName,
       active: true,
       params: {
         search: payload.search

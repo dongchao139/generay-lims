@@ -17,6 +17,8 @@ export default defineConfig({
             { exact: true, path: '/pages/Option1Detail', component: '@/pages/Option1/Option1Detail' },
             { exact: true, path: '/pages/Option2', component: '@/pages/Option2' },
             { exact: true, path: '/pages/Option3', component: '@/pages/Option3' },
+
+            { exact: true, path: '/pages/ProcessList', component: '@/pages/workflow/ProcessList' },
             { component: '@/pages/404/404' },
           ],
           wrappers: [

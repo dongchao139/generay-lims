@@ -13,14 +13,30 @@ import useClickOutside from '@/hooks/useClickOutside';
 import {history} from 'umi';
 import { IState, ITab } from '@/store';
 
-const defaultMenus = [{
-  name: 'Navigation One',
-  subMenus: [
-    { name: 'Option1' },
-    { name: 'Option2' },
-    { name: 'Option3' },
-  ]
-}]
+interface IMenu {
+  name: string;
+  chName?: string;
+  subMenus?: Array<IMenu>;
+}
+
+const defaultMenus: Array<IMenu> = [
+  { name: '工作流',
+    subMenus: [
+      { name: 'ProcessList', chName: '流程列表' },
+      { name: 'WaitingList', chName: '待办任务' },
+      { name: 'ForwardedList', chName: '已办任务' },
+      { name: 'DowntaskList', chName: '完结任务' }
+    ]
+  },
+  {
+    name: 'Navigation One',
+    subMenus: [
+      { name: 'Option1' },
+      { name: 'Option2' },
+      { name: 'Option3' },
+    ]
+  }
+]
 
 /**
  * 全局layout（除登录页以外）
@@ -92,14 +108,15 @@ const DefaultLayout: React.FC = (props: any) => {
       });
     }
   }, []);
-  const handleMenuClick = useCallback((optName) => {
-    dispatch({
+  const handleMenuClick = useCallback((submenu) => {
+      dispatch({
       type: 'add-tab',
       payload: {
-        optName
+        enName: submenu.name,
+        chName: submenu.chName
       }
     });
-    history.push("/pages/"+optName);
+    history.push("/pages/"+submenu.name);
   },[]);
   // 基础布局
   return (
@@ -129,9 +146,9 @@ const DefaultLayout: React.FC = (props: any) => {
                 >
                   {menu.subMenus && menu.subMenus.map(submenu => (
                     <Menu.Item key={submenu.name} icon={<PieChartOutlined />}
-                    onClick={() => handleMenuClick(submenu.name)}
+                    onClick={() => handleMenuClick(submenu)}
                    >
-                     {submenu.name}
+                     {submenu.chName ? submenu.chName : submenu.name}
                    </Menu.Item>
                   ))}
                 </SubMenu>
@@ -154,7 +171,7 @@ const DefaultLayout: React.FC = (props: any) => {
                 stateTabs && stateTabs.map(tab => {
                   const clsName = tab.active ? "checked": "";
                   return <li className={clsName} onClick={() => handleTabClick(tab)}>
-                      {tab.name}
+                      {tab.chName ? tab.chName : tab.name}
                       {tab.active ?
                       <CloseOutlined className="icon-close"
                         onClick={(e) => handleTabClose(tab,e)}

@@ -49,6 +49,7 @@ export interface IAuthInfo {
 
 export interface ITab {
     name: string;
+    chName?: string;
     active: boolean;
     params?: {[key: string]: string};
 }
