@@ -2,6 +2,7 @@ import { applyMiddleware, compose, createStore, Store } from 'redux';
 import reducer, { IAction } from './reducer';
 import createSagaMiddleware from 'redux-saga';
 import rootSagas from './rootSagas';
+import {defaultMenus,getMenuByPath} from '@/menus';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -35,6 +36,10 @@ function getTabInfoFromLocation(): ITab | null {
         name: pathName,
         active: true
       }
+    }
+    let menu = getMenuByPath(pathName, defaultMenus);
+    if (menu && menu.chName) {
+      tab.chName = menu.chName;
     }
     return tab;
   }

@@ -12,31 +12,7 @@ import './index.css';
 import useClickOutside from '@/hooks/useClickOutside';
 import {history} from 'umi';
 import { IState, ITab } from '@/store';
-
-interface IMenu {
-  name: string;
-  chName?: string;
-  subMenus?: Array<IMenu>;
-}
-
-const defaultMenus: Array<IMenu> = [
-  { name: '工作流',
-    subMenus: [
-      { name: 'ProcessList', chName: '流程列表' },
-      { name: 'WaitingList', chName: '待办任务' },
-      { name: 'ForwardedList', chName: '已办任务' },
-      { name: 'DowntaskList', chName: '完结任务' }
-    ]
-  },
-  {
-    name: 'Navigation One',
-    subMenus: [
-      { name: 'Option1' },
-      { name: 'Option2' },
-      { name: 'Option3' },
-    ]
-  }
-]
+import {IMenu, defaultMenus} from '@/menus';
 
 /**
  * 全局layout（除登录页以外）
