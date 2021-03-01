@@ -101,7 +101,7 @@ const columns = [
 const ProcessList: React.FC<IProcess> = () => {
   return (
     <div>
-      <Table dataSource={processList} columns={columns}/>  
+      <Table dataSource={processList} columns={columns} size='middle'/>  
     </div>
   )
 }
