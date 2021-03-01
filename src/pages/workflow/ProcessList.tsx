@@ -2,7 +2,9 @@ import { IState } from '@/store';
 import React, {useCallback, useEffect} from 'react'
 import {useMappedState, useDispatch} from 'redux-react-hook';
 import { Link,history } from 'umi';
-import { Table, Tag, Space } from 'antd';
+import { Table, Button,Select,Input } from 'antd';
+import './ProcessList.css';
+import { SearchOutlined } from '@ant-design/icons';
 
 interface IProcess {
   key: string;
@@ -101,7 +103,31 @@ const columns = [
 const ProcessList: React.FC<IProcess> = () => {
   return (
     <div>
-      <Table dataSource={processList} columns={columns} size='middle'/>  
+      <div className='btn-group'>
+        <Button size='middle'>新增</Button>
+        <Button size='middle'>编辑</Button>
+        <Button size='middle'>设计流程图</Button>
+        <Button size='middle'>流程配置</Button>
+      </div>
+      <div className="input-group">
+        <Select
+          showSearch
+          style={{ width: 200 }}
+          placeholder="Select a person"
+          optionFilterProp="children"
+        >
+          <Select.Option value="jack">Jack</Select.Option>
+          <Select.Option value="lucy">Lucy</Select.Option>
+          <Select.Option value="tom">Tom</Select.Option>
+        </Select>
+        <Input style={{ width: 200 }} placeholder="Basic usage" />
+        <div className="search-wrapper">
+          <SearchOutlined />
+        </div>
+      </div>
+      <Table dataSource={processList} columns={columns} size='middle'
+        rowSelection={{type: 'checkbox'}}
+      />  
     </div>
   )
 }

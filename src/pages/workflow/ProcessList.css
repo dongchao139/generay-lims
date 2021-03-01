@@ -1,0 +1,27 @@
+.btn-group {
+    margin-bottom:  0.3em;
+}
+.btn-group > button.ant-btn {
+    margin-right:  0.3em;
+}
+
+.input-group {
+    margin-bottom:  0.3em;
+}
+
+.input-group > .search-wrapper {
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    width: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.input-group > .ant-select {
+    margin-right: 0.3em;
+}
+.input-group > .search-wrapper:hover {
+    background-color: #fa541c;
+    color: white;
+}
