@@ -19,6 +19,7 @@ export default defineConfig({
             { exact: true, path: '/pages/Option3', component: '@/pages/Option3' },
 
             { exact: true, path: '/pages/ProcessList', component: '@/pages/workflow/ProcessList' },
+            { exact: true, path: '/pages/WaitingList', component: '@/pages/workflow/WaitingList' },
             { component: '@/pages/404/404' },
           ],
           wrappers: [

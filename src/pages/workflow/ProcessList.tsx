@@ -1,7 +1,4 @@
-import { IState } from '@/store';
 import React, {useCallback, useEffect} from 'react'
-import {useMappedState, useDispatch} from 'redux-react-hook';
-import { Link,history } from 'umi';
 import { Table, Button,Select,Input } from 'antd';
 import './ProcessList.css';
 import { SearchOutlined } from '@ant-design/icons';
