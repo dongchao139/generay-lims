@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect } from 'react'
-import { Card } from 'antd';
+import React, { useCallback, useEffect, useState } from 'react'
+import { Card,Modal } from 'antd';
 import "./WaitingList.css";
 
 interface IWaitingList {

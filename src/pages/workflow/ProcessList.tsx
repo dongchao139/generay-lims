@@ -1,7 +1,18 @@
-import React, {useCallback, useEffect} from 'react'
-import { Table, Button,Select,Input } from 'antd';
+import React, {useCallback, useEffect, useState} from 'react'
+import { Table, Button,Select,Input,Modal,Form } from 'antd';
 import './ProcessList.css';
 import { SearchOutlined } from '@ant-design/icons';
+
+const { Option } = Select;
+
+const layout = {
+  labelCol: { span: 6 },
+  wrapperCol: { span: 18 },
+};
+const tailLayout = {
+  wrapperCol: { offset: 6, span: 18 },
+};
+
 
 interface IProcess {
   key: string;
@@ -98,11 +109,12 @@ const columns = [
 ]
 
 const ProcessList: React.FC<IProcess> = () => {
+  const [visible, setVisible] = useState<boolean>(false);
   return (
     <div>
       <div className='btn-group'>
-        <Button size='middle'>新增</Button>
-        <Button size='middle'>编辑</Button>
+        <Button size='middle' onClick={() => setVisible(true)}>新增</Button>
+        <Button size='middle' onClick={() => setVisible(true)}>编辑</Button>
         <Button size='middle'>设计流程图</Button>
         <Button size='middle'>流程配置</Button>
       </div>
@@ -125,6 +137,38 @@ const ProcessList: React.FC<IProcess> = () => {
       <Table dataSource={processList} columns={columns} size='middle'
         rowSelection={{type: 'checkbox'}}
       />  
+      <Modal
+       title="新增流程"
+       visible={visible}
+       okText="确认"
+       cancelText="取消"
+       onOk={()=>setVisible(false)}
+       onCancel={()=>setVisible(false)}
+      >
+        <Form {...layout} size="middle">
+          <Form.Item name="processName" label="流程名称" rules={[{required: true}]}>
+            <Input />
+          </Form.Item>
+          <Form.Item name="processCate" label="流程标签">
+          <Select
+            allowClear
+          >
+            <Option value="male">male</Option>
+            <Option value="female">female</Option>
+            <Option value="other">other</Option>
+          </Select>
+          </Form.Item>
+          <Form.Item name="version" label="版本">
+            <Input />
+          </Form.Item>
+          <Form.Item name="description" label="描述">
+            <Input />
+          </Form.Item>
+          <Form.Item name="url" label="url" rules={[{required: true}]}>
+            <Input />
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   )
 }
