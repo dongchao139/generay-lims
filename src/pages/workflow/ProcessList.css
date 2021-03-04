@@ -29,3 +29,11 @@
 .modal-add-btn{
     margin-right: 8px;
 }
+
+svg.lf-drag-able {
+    position: absolute;
+}
+
+.lf-grid {
+    height: 100%;
+}

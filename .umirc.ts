@@ -26,6 +26,7 @@ export default defineConfig({
             '@/wrappers/auth'
           ]
         },
+        { exact: true, path: '/workflowedit', component: '@/pages/workflow/WorkflowEdit', wrappers: [ '@/wrappers/auth' ] }
       ]
     }
   ],

@@ -1,6 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import { Table, Button,Select,Input,Modal,Form } from 'antd';
 import './ProcessList.css';
+import { history } from 'umi';
 import { SearchOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
@@ -9,10 +10,6 @@ const layout = {
   labelCol: { span: 6 },
   wrapperCol: { span: 18 },
 };
-const tailLayout = {
-  wrapperCol: { offset: 6, span: 18 },
-};
-
 
 interface IProcess {
   key: string;
@@ -115,7 +112,7 @@ const ProcessList: React.FC<IProcess> = () => {
       <div className='btn-group'>
         <Button size='middle' onClick={() => setVisible(true)}>新增</Button>
         <Button size='middle' onClick={() => setVisible(true)}>编辑</Button>
-        <Button size='middle'>设计流程图</Button>
+        <Button size='middle' onClick={() =>history.push("/WorkflowEdit?id=1")}>设计流程图</Button>
         <Button size='middle'>流程配置</Button>
       </div>
       <div className="input-group">
